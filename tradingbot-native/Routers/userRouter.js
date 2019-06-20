@@ -69,5 +69,43 @@ router.post('/signup', async (req,res) =>{
     });
 });
 
+router.post('/login', async(req,res)=>{
+    Joi.validate(req.body, userModel, async(err,val) =>{
+        if(err){
+            console.log('joi validation err ===>>', err)
+            res.json({
+                status: 0,
+                msg: err.name,
+                doc: {}
+            });
+        }
+        else{
+            const db = mongoUtils.getDB();
+            const users = db.collection(collections.userCollection);
+            try{
+                const result = await userQuery.finduserByName(users,req.body.username)
+                if (result){
+                    res.json({
+                        status: 1,
+                        msg: 'successfully found',
+                        doc: result
+                    });
+                }
+                else{
+                    res.json({
+                        status: 0,
+                        msg: 'not found',
+                        doc: {}
+                    });
+                }
+            }
+            catch (e){
+                throw e;
+            }
+        }
+    });
+    
+});
+
 
 module.exports = router;
