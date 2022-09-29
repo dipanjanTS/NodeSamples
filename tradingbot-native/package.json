@@ -9,7 +9,7 @@
   "author": "Dipanjan Pal",
   "license": "ISC",
   "dependencies": {
-    "@hapi/joi": "^15.0.3",
+    "@hapi/joi": "^15.1.1",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "ibm-watson": "^4.2.1",
